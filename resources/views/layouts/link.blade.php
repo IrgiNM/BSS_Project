@@ -1,0 +1,1 @@
+<a href="{{ $href }}" class="text-[13px] font-bold px-[15px] py-[10px] rounded-full border-[1px] border-[#2168b9]">{{ $slot }}<i class="w-[15px] h-[15px] me-3 fa-solid fa-store text-white"></i></a>

@@ -1,0 +1,1 @@
+<div id="block" class="hidden div w-[100%] h-[100%] bg-[#1e1442] opacity-[70%] backdrop-blur-md absolute top-0 right-0 left-0 bottom-0 "></div>
