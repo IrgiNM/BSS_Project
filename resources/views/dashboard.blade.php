@@ -1,4 +1,5 @@
-<x-app-layout>
+<x-app-layout :cartsablon="$ulasans">
+    @include('layouts.navbar')
 
         {{-- JUDUL DEPAN --}}
         <div class="w-full h-[680px] py-[60px] px-[160px]">

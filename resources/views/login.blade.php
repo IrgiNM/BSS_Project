@@ -7,9 +7,7 @@
     
     {{-- GAMBAR KIRI --}}
     <div class="container w-[40%] h-[500px] bg-white border-black absolute left-[150px] top-[60px]">
-        <p class="text-[#14005e] text-[20px] font-poppins font-bold mb-0">BUMMI Sablon Studio
-            <a href="/login_admin" class=" font-poppins font-bold text-[13px] text-[#d9cfff] hover:text-[#ff4684] ms-3">admin</a>
-        </p>
+        <p class="text-[#14005e] text-[20px] font-poppins font-bold mb-0">BUMMI Sablon Studio</p>
         <p class="text-[35px] text-[#14005e] font-bold font-poppins -mt-1">Sablon High Quality</p>
         <img src="{{ asset('images/LOGIN_PAGE.png') }}" alt="ilustrasi_sablon" class="absolute top-[30px] w-[90%]">
         <p class="absolute bottom-[50px] left-[20px] text-[13px] text-[#14005e]">Ingin tampil beda dengan gaya yang unik? Pesan kaos sablon dari kami sekarang!</p>

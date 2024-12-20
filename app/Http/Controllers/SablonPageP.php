@@ -2,13 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use App\Models\OrderSablon;
+use App\Models\Notif;
 use App\Models\Daftars;
 use App\Models\Customer;
-use Illuminate\Support\Facades\Storage;
+use App\Models\OrderSablon;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class SablonPageP extends Controller
 {
@@ -19,7 +21,12 @@ class SablonPageP extends Controller
     }
 
     public function sablonPrinting(){
-        return view('sablon_p');
+        // Ambil id pengguna dari sesi
+        $customerId = Auth::user()->id;
+        $notif = Notif::where('id_customer', $customerId)->orderBy('id', 'desc')->get();
+
+        $cartsablon = OrderSablon::where('id_customer', $customerId)->where('status', 'keranjang')->orderBy('id', 'desc')->get();
+        return view('sablon_p', compact('notif', 'cartsablon'));
     }
 
     public function store(Request $request) {

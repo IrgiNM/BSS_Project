@@ -1,4 +1,5 @@
 <x-app-layout>
+    @include('layouts.navbar')
     <div id="blok" class="hidden fixed palingdepan w-full h-full bg-[#2168b9] opacity-60"></div>
 
     <div class="w-[80%] h-[200px] pt-[100px] flex flex-col m-auto">

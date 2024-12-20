@@ -77,7 +77,6 @@
         <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
         <div class="min-h-screen bg-[#fcfbff]">
             {{-- @include('layouts.navigation') --}}
-            @include('layouts.navbar')
 
             <!-- Page Heading -->
             @isset($header)
