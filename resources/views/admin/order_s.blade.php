@@ -51,7 +51,7 @@
         </div>
     </div>
 
-    <div class="w-[100%] h-[610px] ps-[240px] pe-[40px] bg-[#e5e5f0] flex flex-col">
+    <div class="w-[100%] h-auto ps-[240px] pb-[250px] pe-[40px] bg-[#e5e5f0] flex flex-col">
         <x-totalorder></x-totalorder>
         <div class="w-full h-auto flex flex-row items-center mb-[10px]">
             <p class="text-[10px] font-bold text-[#1b2543]">New</p>
@@ -62,8 +62,8 @@
         <div class="w-[100%] h-auto rounded-[5px] p-3 flex flex-row gap-4 flex-wrap">
             <?php $n=1 ?>
             @foreach ($items as $i)
-            <div id="divitem" class="relative w-[220px] h-[300px] rounded-s-[5px] flex flex-row shadow-lg bg-white transition-all duration-500">
-                <button id="butitem" class="absolute w-[30px] h-[300px] text-[13px] -right-[30px] flex items-center justify-center fa-solid fa-caret-right text-white rounded-e-[5px] bg-[#303f6e] hover:bg-[#1b2543] transition-all duration-200"></button>
+            <div id="divitem" class="divitem relative w-[250px] h-[300px] me-[50px] rounded-s-[5px] flex flex-row shadow-lg bg-white transition-all duration-500">
+                <button id="butitem" class="butitem absolute w-[30px] h-[300px] text-[13px] -right-[30px] flex items-center justify-center fa-solid fa-caret-right text-white rounded-e-[5px] bg-[#303f6e] hover:bg-[#1b2543] transition-all duration-200"></button>
                 <div class="w-[200px] h-[450px] rounded-[5px] flex flex-col items-center p-3">
                     <img src="{{ asset('storage/'.$i->gambar_jadi) }}" alt="" class="w-[170px] border-[1px] rounded-[5px] object-cover mb-3 bg-blue-500">
                     <img src="{{ asset('storage/'.$i->gambar) }}" alt="" class="w-[170px] h-[50px] border-[1px] rounded-[5px] object-cover bg-blue-500">
@@ -71,7 +71,7 @@
                         <i class="fa-solid fa-download group-hover:text-white text-[13px] text-[#1b2543]"></i>
                     </a>
                 </div>
-                <div id="divdata" class="hidden w-[380px] h-[450px] rounded-[5px] flex-col">
+                <div id="divdata" class="divdata hidden w-[380px] h-[450px] rounded-[5px] flex-col">
                     <div class="w-full flex items-center">
                         <p class="text-[13px] text-white w-[20px] h-[20px] bg-[#ff83ac] rounded-[5px] me-1 text-center">{{ $n }}</p>
                         <p class="text-[15px] text-left ms-3 mt-4 mb-3 font-bold">Sablon {{ $i->metode_kaos }}</p>
@@ -96,7 +96,7 @@
                             <p class="text-[13px] font-bold"> : </p>
                             <p class="text-[13px] font-bold"> : </p>
                         </div>
-                        <div class="w-[150px] h-auto flex items-start flex-col ms-3">
+                        <div class="w-[180px] h-auto flex items-start flex-col ms-3">
                             <p class="text-[13px] text-[#ff4684]">{{ $i->nama_user }}</p>
                             <p class="text-[13px]">{{ $i->jenis_kaos }}</p>
                             <p class="text-[13px]">{{ $i->warna_kaos }}</p>
@@ -108,7 +108,7 @@
                     </div>
                     <div class="w-[360px] rounded-[5px] flex flex-row border-[2px] border-b-[5px] mt-10 p-2">
                         <div class="w-[100px] h-auto flex flex-col ms-3">
-                            <p class="text-[13px] font-semibold">jenis kaos</p>
+                            <p class="text-[13px] font-semibold">status</p>
                             <p class="text-[13px] font-semibold">warna kaos</p>
                         </div>
                         <div class="w-[20px] h-auto flex flex-col ms-3">
@@ -141,9 +141,9 @@
     
     <script>
          $(document).ready(function() {
-            var $divitem = $('#divitem');
-            var $butitem = $('#butitem');
-            var $divdata = $('#divdata');
+            var $divitem = $('.divitem');
+            var $butitem = $('.butitem');
+            var $divdata = $('.divdata');
             $butitem.on('click', function() {
                 $divitem.toggleClass('w-[220px] w-[565px]');
                 $divdata.toggleClass('hidden flex');

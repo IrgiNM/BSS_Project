@@ -30,7 +30,7 @@
         <div id="divimg" class="hidden w-[300px] h-[400px] rounded-[10px] border-[2px] border-b-[5px] border-[#2168b9] bg-white p-[20px] flex-col">
             @include('components.edit_gambarkaos')
         </div>
-        <div id="divposisi" class="hidden w-[300px] h-[400px] rounded-[10px] border-[2px] border-b-[5px] border-[#2168b9] bg-white p-[20px] flex-col">
+        <div id="divposisi" class="posisi1 hidden w-[300px] h-[400px] rounded-[10px] border-[2px] border-b-[5px] border-[#2168b9] bg-white p-[20px] flex-col">
             @include('components.edit_posisikaos')
         </div>
     </div>
@@ -38,13 +38,13 @@
     <div id="divdata" class="relative w-auto h-auto p-[20px] rounded-[10px] border-[2px] border-b-[5px] border-[#b1c6de] mt-[30px] flex flex-row justify-center items-center pt-3 gap-5 bg-white">
         <form action="{{ route('order.sablon') }}" method="POST" enctype="multipart/form-data">
         @csrf
-        <input required type="text" name="jeniskaos" id="jeniskaos" class="hidden" value="d">
-        <input required type="text" name="warnakaos" id="warnakaos" class="hidden" value="d">
+        <input required type="text" name="jeniskaos" id="jeniskaos" class="hidden" value="lengan pendek depan">
+        <input required type="text" name="warnakaos" id="warnakaos" class="hidden" value="putih">
         <input required type="file" name="gambarkaos" id="gambarkaos" class="hidden">
-        <input required type="file" name="gambarjadi" id="gambarjadi" class="hidden" value="">
-        <input required type="text" name="posisikaos" id="posisikaos" class="hidden" value="d">
-        <input required type="text" name="metodekaos" id="metodekaos" class="hidden" value="d">
-        <input required type="text" name="status" id="status" class="hidden" value="tunggu harga">
+        <input required type="file" name="gambarjadi" id="gambarjadi" class="hidden">
+        <input required type="text" name="posisikaos" id="posisikaos" class="hidden" value="posisi 1">
+        <input required type="text" name="metodekaos" id="metodekaos" class="hidden" value="manual">
+        <input required type="text" name="status" id="status" class="hidden" value="keranjang">
 
         <div id="yakin" class="hidden fixed palingdepanlagi top-[150px] w-[300px] h-[300px] bg-white rounded-[15px] right-[550px] flex-col justify-end items-center p-[20px]">
             <p id="close" class="absolute cursor-pointer -top-4 -right-4 fa-solid fa-xmark flex justify-center items-center w-[40px] h-[40px] rounded-full border-[3px] border-[#9e2065] text-[#9e2065] bg-white hover:bg-[#9e2065] hover:text-white"></p>

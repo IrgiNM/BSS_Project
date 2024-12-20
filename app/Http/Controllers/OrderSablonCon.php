@@ -63,7 +63,7 @@ class OrderSablonCon extends Controller
         $orderSablon->save();
 
         // Redirect atau response sesuai kebutuhan
-        return redirect()->back()->with('success', 'Order berhasil disimpan');
+        return redirect()->back()->with('success', 'Order berhasil ke keranjang');
     }
 
     public function storeP(Request $request)
@@ -104,23 +104,23 @@ class OrderSablonCon extends Controller
         // Simpan data ke database
         $orderSablon = new OrderSablon();
         $orderSablon->id_customer = $customerId;
-        $orderSablon->jenis_kaos = $request->jeniskaos;
-        $orderSablon->status = $request->status;
-        $orderSablon->warna_kaos = $request->warnakaos;
+        $orderSablon->jenis_kaos = $request->jeniskaos2;
+        $orderSablon->status = $request->status2;
+        $orderSablon->warna_kaos = $request->warnakaos2;
         $orderSablon->gambar = $imagePath;
         $orderSablon->gambar_jadi = $imagePath2;
-        $orderSablon->posisi = $request->posisikaos;
-        $orderSablon->jumlah_kaos = $request->jumlahkaos;
-        $orderSablon->warna_sablon = $request->warnasablon;
-        $orderSablon->ukuran_sablon = $request->ukurankaos;
-        $orderSablon->metode_kaos = $request->metodekaos;
+        $orderSablon->posisi = $request->posisikaos2;
+        $orderSablon->jumlah_kaos = $request->jumlahkaos2;
+        $orderSablon->warna_sablon = $request->warnasablon2;
+        $orderSablon->ukuran_sablon = $request->ukurankaos2;
+        $orderSablon->metode_kaos = $request->metodekaos2;
         $orderSablon->bahan_sablon = "biasa";
         $orderSablon->created_at = now(); // Mengisi created_at dengan NOW()
         $orderSablon->updated_at = now(); // Mengisi updated_at dengan NOW()
         $orderSablon->save();
 
         // Redirect atau response sesuai kebutuhan
-        return redirect()->back()->with('success', 'Order berhasil disimpan');
+        return redirect()->back()->with('success', 'Order berhasil ke keranjang');
     }
 }
 

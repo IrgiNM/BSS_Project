@@ -64,6 +64,9 @@
             .palingdepanlagi {
                 z-index: 41;
             }
+            .notif {
+                z-index: 50;
+            }
             button {
                 position: relative;
                 z-index: 1;

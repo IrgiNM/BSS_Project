@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Orders;
 use App\Models\Ulasan;
+use App\Models\Notif;
 use App\Models\OrderSablon;
 
 class Customer extends Model
@@ -24,5 +25,10 @@ class Customer extends Model
     public function sablon()
     {
         return $this->hasMany(OrderSablon::class, 'id_customer');
+    }
+
+    public function notif()
+    {
+        return $this->hasMany(Notif::class, 'id_customer');
     }
 }

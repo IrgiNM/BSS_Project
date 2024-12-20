@@ -227,17 +227,20 @@
                     }
                     console.log('warna :'+$warnakaos.val());
 
-                    if($divposisi.hasClass('jkpendekd')){
-                        $posisikaos.val('lengan pendek depan');
+                    if($divposisi.hasClass('posisi1')){
+                        $posisikaos.val('posisi 1');
                     }
-                    else if($divposisi.hasClass('jkpendekb')){
-                        $posisikaos.val('lengan pendek belakang');
+                    else if($divposisi.hasClass('posisi2')){
+                        $posisikaos.val('posisi 2');
                     }
-                    else if($divposisi.hasClass('jkpanjangd')){
-                        $posisikaos.val('lengan panjang depan');
+                    else if($divposisi.hasClass('posisi3')){
+                        $posisikaos.val('posisi 3');
                     }
-                    else if($divposisi.hasClass('jkpanjangb')){
-                        $posisikaos.val('lengan panjang belakang');
+                    else if($divposisi.hasClass('posisi4')){
+                        $posisikaos.val('posisi 4');
+                    }
+                    else if($divposisi.hasClass('posisi5')){
+                        $posisikaos.val('posisi 5');
                     }
                     console.log('posisi :'+$posisikaos.val());
 
@@ -335,17 +338,20 @@
                     }
                     console.log('warna :' + $warnakaos2.val());
 
-                    if($divposisi2.hasClass('jkpendekd')){
-                        $posisikaos2.val('lengan pendek depan');
+                    if($divposisi2.hasClass('posisi1')){
+                        $posisikaos2.val('posisi 1');
                     }
-                    else if($divposisi2.hasClass('jkpendekb')){
-                        $posisikaos2.val('lengan pendek belakang');
+                    else if($divposisi2.hasClass('posisi2')){
+                        $posisikaos2.val('posisi 2');
                     }
-                    else if($divposisi2.hasClass('jkpanjangd')){
-                        $posisikaos2.val('lengan panjang depan');
+                    else if($divposisi2.hasClass('posisi3')){
+                        $posisikaos2.val('posisi 3');
                     }
-                    else if($divposisi2.hasClass('jkpanjangb')){
-                        $posisikaos2.val('lengan panjang belakang');
+                    else if($divposisi2.hasClass('posisi4')){
+                        $posisikaos2.val('posisi 4');
+                    }
+                    else if($divposisi2.hasClass('posisi5')){
+                        $posisikaos2.val('posisi 5');
                     }
                     console.log('posisi :' + $posisikaos2.val());
 
@@ -586,49 +592,7 @@
                     $divmetode.addClass('manual');
                 });
             });
-            $(document).ready(function() {
-                var $aimg2 = $('#aimg2');
-                var $imgs2 = $('#imgs2');
-                var $aimg22 = $('#aimg22');
-                var $imgs22 = $('#imgs22');
-                var $manual2 = $('#manual2');
-                var $printing2 = $('#printing2');
-                var $divmetode2 = $('#divmetode2');
-
-                $aimg2.hover(function() {
-                    $imgs2.toggleClass('fa-bounce');
-                });
-
-                $aimg22.hover(function() {
-                    $imgs22.toggleClass('fa-bounce');
-                });
-
-                $aimg2.on('click', function() {
-                    $aimg2.toggleClass('opacity-100 opacity-30');
-                    if ($aimg22.hasClass('opacity-100')) {
-                        $aimg22.toggleClass('opacity-100 opacity-30');
-                    }
-                    $printing2.toggleClass('hidden flex');
-                    if ($manual2.hasClass('flex')) {
-                        $manual2.toggleClass('hidden flex');
-                    }
-                    $divmetode2.removeClass('manual');
-                    $divmetode2.addClass('printing');
-                });
-
-                $aimg22.on('click', function() {
-                    $aimg22.toggleClass('opacity-100 opacity-30');
-                    if ($aimg2.hasClass('opacity-100')) {
-                        $aimg2.toggleClass('opacity-100 opacity-30');
-                    }
-                    $manual2.toggleClass('hidden flex');
-                    if ($printing2.hasClass('flex')) {
-                        $printing2.toggleClass('hidden flex');
-                    }
-                    $divmetode2.removeClass('printing');
-                    $divmetode2.addClass('manual');
-                });
-            });
+            
 
 
             // UPLOAD GAMBAR
@@ -1704,11 +1668,11 @@
                         $ps5.toggleClass('opacity-100 opacity-30 fa-bounce');
                     }
                     
-                    $divposisi.removeClass('posisi 2');
-                    $divposisi.removeClass('posisi 3');
-                    $divposisi.removeClass('posisi 4');
-                    $divposisi.removeClass('posisi 5');
-                    $divposisi.addClass('posisi 1');
+                    $divposisi.removeClass('posisi2');
+                    $divposisi.removeClass('posisi3');
+                    $divposisi.removeClass('posisi4');
+                    $divposisi.removeClass('posisi5');
+                    $divposisi.addClass('posisi1');
                 });
 
                 $ps2.on('click', function(){
@@ -1732,11 +1696,11 @@
                         $ps5.toggleClass('opacity-100 opacity-30 fa-bounce');
                     }
 
-                    $divposisi.removeClass('posisi 1');
-                    $divposisi.removeClass('posisi 3');
-                    $divposisi.removeClass('posisi 4');
-                    $divposisi.removeClass('posisi 5');
-                    $divposisi.addClass('posisi 2');
+                    $divposisi.removeClass('posisi1');
+                    $divposisi.removeClass('posisi3');
+                    $divposisi.removeClass('posisi4');
+                    $divposisi.removeClass('posisi5');
+                    $divposisi.addClass('posisi2');
                 });
 
                 $ps3.on('click', function(){
@@ -1760,11 +1724,11 @@
                         $ps5.toggleClass('opacity-100 opacity-30 fa-bounce');
                     }
 
-                    $divposisi.removeClass('posisi 2');
-                    $divposisi.removeClass('posisi 1');
-                    $divposisi.removeClass('posisi 4');
-                    $divposisi.removeClass('posisi 5');
-                    $divposisi.addClass('posisi 3');
+                    $divposisi.removeClass('posisi2');
+                    $divposisi.removeClass('posisi1');
+                    $divposisi.removeClass('posisi4');
+                    $divposisi.removeClass('posisi5');
+                    $divposisi.addClass('posisi3');
                 });
 
                 $ps4.on('click', function(){
@@ -1788,11 +1752,11 @@
                         $ps5.toggleClass('opacity-100 opacity-30 fa-bounce');
                     }
 
-                    $divposisi.removeClass('posisi 2');
-                    $divposisi.removeClass('posisi 3');
-                    $divposisi.removeClass('posisi 1');
-                    $divposisi.removeClass('posisi 5');
-                    $divposisi.addClass('posisi 4');
+                    $divposisi.removeClass('posisi2');
+                    $divposisi.removeClass('posisi3');
+                    $divposisi.removeClass('posisi1');
+                    $divposisi.removeClass('posisi5');
+                    $divposisi.addClass('posisi4');
                 });
 
                 $ps5.on('click', function(){
@@ -1816,11 +1780,11 @@
                         $ps4.toggleClass('opacity-100 opacity-30 fa-bounce');
                     }
 
-                    $divposisi.removeClass('posisi 2');
-                    $divposisi.removeClass('posisi 3');
-                    $divposisi.removeClass('posisi 4');
-                    $divposisi.removeClass('posisi 1');
-                    $divposisi.addClass('posisi 5');
+                    $divposisi.removeClass('posisi2');
+                    $divposisi.removeClass('posisi3');
+                    $divposisi.removeClass('posisi4');
+                    $divposisi.removeClass('posisi1');
+                    $divposisi.addClass('posisi5');
                 });
             });
             $(document).ready(function(){
@@ -1856,11 +1820,11 @@
                         $ps52.toggleClass('opacity-100 opacity-30 fa-bounce');
                     }
                     
-                    $divposisi2.removeClass('posisi 2');
-                    $divposisi2.removeClass('posisi 3');
-                    $divposisi2.removeClass('posisi 4');
-                    $divposisi2.removeClass('posisi 5');
-                    $divposisi2.addClass('posisi 1');
+                    $divposisi2.removeClass('posisi2');
+                    $divposisi2.removeClass('posisi3');
+                    $divposisi2.removeClass('posisi4');
+                    $divposisi2.removeClass('posisi5');
+                    $divposisi2.addClass('posisi1');
                 });
 
                 $ps22.on('click', function(){
@@ -1884,11 +1848,11 @@
                         $ps52.toggleClass('opacity-100 opacity-30 fa-bounce');
                     }
 
-                    $divposisi2.removeClass('posisi 1');
-                    $divposisi2.removeClass('posisi 3');
-                    $divposisi2.removeClass('posisi 4');
-                    $divposisi2.removeClass('posisi 5');
-                    $divposisi2.addClass('posisi 2');
+                    $divposisi2.removeClass('posisi1');
+                    $divposisi2.removeClass('posisi3');
+                    $divposisi2.removeClass('posisi4');
+                    $divposisi2.removeClass('posisi5');
+                    $divposisi2.addClass('posisi2');
                 });
 
                 $ps32.on('click', function(){
@@ -1912,11 +1876,11 @@
                         $ps52.toggleClass('opacity-100 opacity-30 fa-bounce');
                     }
 
-                    $divposisi2.removeClass('posisi 2');
-                    $divposisi2.removeClass('posisi 1');
-                    $divposisi2.removeClass('posisi 4');
-                    $divposisi2.removeClass('posisi 5');
-                    $divposisi2.addClass('posisi 3');
+                    $divposisi2.removeClass('posisi2');
+                    $divposisi2.removeClass('posisi1');
+                    $divposisi2.removeClass('posisi4');
+                    $divposisi2.removeClass('posisi5');
+                    $divposisi2.addClass('posisi3');
                 });
 
                 $ps42.on('click', function(){
@@ -1940,11 +1904,11 @@
                         $ps52.toggleClass('opacity-100 opacity-30 fa-bounce');
                     }
 
-                    $divposisi2.removeClass('posisi 2');
-                    $divposisi2.removeClass('posisi 3');
-                    $divposisi2.removeClass('posisi 1');
-                    $divposisi2.removeClass('posisi 5');
-                    $divposisi2.addClass('posisi 4');
+                    $divposisi2.removeClass('posisi2');
+                    $divposisi2.removeClass('posisi3');
+                    $divposisi2.removeClass('posisi1');
+                    $divposisi2.removeClass('posisi5');
+                    $divposisi2.addClass('posisi4');
                 });
 
                 $ps52.on('click', function(){
@@ -1968,11 +1932,11 @@
                         $ps42.toggleClass('opacity-100 opacity-30 fa-bounce');
                     }
 
-                    $divposisi2.removeClass('posisi 2');
-                    $divposisi2.removeClass('posisi 3');
-                    $divposisi2.removeClass('posisi 4');
-                    $divposisi2.removeClass('posisi 1');
-                    $divposisi2.addClass('posisi 5');
+                    $divposisi2.removeClass('posisi2');
+                    $divposisi2.removeClass('posisi3');
+                    $divposisi2.removeClass('posisi4');
+                    $divposisi2.removeClass('posisi1');
+                    $divposisi2.addClass('posisi5');
                 });
             });
 
