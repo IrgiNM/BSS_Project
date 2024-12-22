@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('id_customer');
             $table->foreign('id_customer')->references('id')->on('users')->onDelete('cascade');
+            $table->string('id_sablon')->nullable();
             $table->string('status')->default('bayar dp');
             $table->text('alamat');
             $table->string('gambar');

@@ -90,4 +90,11 @@ Route::middleware('auth')->group(function () {
     Route::get('sablon/printing', [Controllers\SablonPageP::class, 'sablonPrinting'])->name('sablon.p');
     Route::post('/order-sablon/manual', [Controllers\OrderSablonCon::class, 'store'])->name('order.sablon');
     Route::post('/order-sablon/printing', [Controllers\OrderSablonCon::class, 'storeP'])->name('order.sablon_p');
+    Route::get('/order-sablon/delete/{id}', [Controllers\OrderSablonCon::class, 'deleteOrderSab'])->name('order.sablon.delete');
+});
+
+
+// PEMBAYARAN
+Route::middleware('auth')->group(function(){
+    Route::post('/pembayaran-keranjang', [Controllers\Pembayaran::class, 'bayardp'])->name('pembayaran');
 });

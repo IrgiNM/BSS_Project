@@ -21,7 +21,8 @@
 
                 <p class="text-[13px] font-bold"><i class="fa-regular fa-pen-to-square text-[13px] me-2"></i>Edit</p>
                 <select name="status" id="status" class="w-full mt-3 mb-2 border-[2px] rounded-[5px] text-[13px]" value="{{ $sablons->status }}">
-                    <option value="tunggu harga">tunggu harga</option>
+                    <option value="keranjang">keranjang</option> 
+                    <option value="tunggu harga">tunggu harga</option> 
                     <option value="dikonfirmasi">dikonfirmasi</option>
                     <option value="diproses">diproses</option>
                     <option value="siap diambil">siap diambil</option>

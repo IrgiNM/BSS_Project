@@ -24,9 +24,11 @@ class SablonPageP extends Controller
         // Ambil id pengguna dari sesi
         $customerId = Auth::user()->id;
         $notif = Notif::where('id_customer', $customerId)->orderBy('id', 'desc')->get();
+        $countnotif = Notif::where('id_customer', $customerId)->orderBy('id', 'desc')->count();
 
         $cartsablon = OrderSablon::where('id_customer', $customerId)->where('status', 'keranjang')->orderBy('id', 'desc')->get();
-        return view('sablon_p', compact('notif', 'cartsablon'));
+        $countcartsab = OrderSablon::where('id_customer', $customerId)->where('status', 'keranjang')->orderBy('id', 'desc')->count();
+        return view('sablon_p', compact('notif','countnotif','cartsablon','countcartsab'));
     }
 
     public function store(Request $request) {

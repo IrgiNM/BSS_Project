@@ -122,5 +122,14 @@ class OrderSablonCon extends Controller
         // Redirect atau response sesuai kebutuhan
         return redirect()->back()->with('success', 'Order berhasil ke keranjang');
     }
+
+    public function deleteOrderSab($id){
+        $order = OrderSablon::find($id);
+        if($order){
+            $order->delete();
+            return redirect()->route('daftar.pro')->with('success', 'pesanan berhasil dihapus');
+        }
+        return redirect()->route('daftar.pro')->with('error', 'order gagal dihapus!');
+    }
 }
 
