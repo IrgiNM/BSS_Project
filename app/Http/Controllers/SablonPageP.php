@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Notif;
+use App\Models\Orders;
 use App\Models\Daftars;
 use App\Models\Customer;
 use App\Models\OrderSablon;
@@ -15,9 +16,12 @@ use Illuminate\Support\Facades\Storage;
 class SablonPageP extends Controller
 {
     public function index(){
+        $countbayardp = Orders::where('status','bayar dp')->count();
+        $countbayarlunas = Orders::where('status','bayar lunas')->count();
+        $countsablon = OrderSablon::count();
         $judul = 'Sablon';
         $items = DB::table('order_sablon')->join('users', 'order_sablon.id_customer', '=', 'users.id')->select('order_sablon.*', 'users.username as nama_user')->orderBy('id', 'desc')->get();
-        return view('admin.order_s', compact('items','judul'));
+        return view('admin.order_s', compact('items','judul','countbayardp','countbayarlunas','countsablon'));
     }
 
     public function sablonPrinting(){
@@ -80,6 +84,10 @@ class SablonPageP extends Controller
     }
 
     public function edit($id){
+        $countbayardp = Orders::where('status','bayar dp')->count();
+        $countbayarlunas = Orders::where('status','bayar lunas')->count();
+        $countsablon = OrderSablon::count();
+
         $judul = 'Sablon';
         $script = "
         document.getElementById('divadd').classList.toggle('hidden flex');
@@ -90,7 +98,7 @@ class SablonPageP extends Controller
         $sablons = OrderSablon::find($id);
         $items = DB::table('order_sablon')->join('users', 'order_sablon.id_customer', '=', 'users.id')->select('order_sablon.*', 'users.username as nama_user')->orderBy('id', 'desc')->get();
         
-        return view('admin.order_s', compact('judul','items','script','sablons'));
+        return view('admin.order_s', compact('judul','items','script','sablons','countbayardp','countbayarlunas','countsablon'));
     }
 
     public function update(Request $request, $id) {
@@ -132,9 +140,13 @@ class SablonPageP extends Controller
         $orderSablon->updated_at = now(); // Mengisi updated_at dengan NOW()
         $orderSablon->save();
 
+        $countbayardp = Orders::where('status','bayar dp')->count();
+        $countbayarlunas = Orders::where('status','bayar lunas')->count();
+        $countsablon = OrderSablon::count();
+
         $judul = 'Sablon';
         $items = DB::table('order_sablon')->join('users', 'order_sablon.id_customer', '=', 'users.id')->select('order_sablon.*', 'users.username as nama_user')->orderBy('id', 'desc')->get();
-        return view('admin.order_s', compact('items','judul'));
+        return view('admin.order_s', compact('items','judul','countbayardp','countbayarlunas','countsablon'));
 
     }
 }

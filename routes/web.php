@@ -81,6 +81,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
 // ORDER routes with auth middleware
 Route::middleware('auth','admin')->group(function () {
     Route::get('/order-page', [Controllers\OrderPage::class, 'index'])->name('order.dash');
+    Route::get('/order-download/{id}', [Controllers\OrderPage::class, 'downloadBuktiDP'])->name('download.bukti');
     Route::get('/order-lunas', [Controllers\OrderPage::class, 'lunas'])->name('order.lunas');
     Route::get('/order-sablon', [Controllers\SablonPageP::class, 'index'])->name('order.sablon.admin');
 });
@@ -97,4 +98,10 @@ Route::middleware('auth')->group(function () {
 // PEMBAYARAN
 Route::middleware('auth')->group(function(){
     Route::post('/pembayaran-keranjang', [Controllers\Pembayaran::class, 'bayardp'])->name('pembayaran');
+    Route::post('/pembayaran-lunas', [Controllers\Pembayaran::class, 'bayarlunas'])->name('pembayaran.lunas');
+    Route::get('/menunggu-konfirmasi', [Controllers\Transaksi::class, 'index'])->name('belum.konfirmasi');
+    Route::get('/ngantri', [Controllers\Transaksi::class, 'antri'])->name('ngantri');
+    Route::get('/order-diproses', [Controllers\Transaksi::class, 'proses'])->name('order.diproses');
+    Route::get('/siap-diambil', [Controllers\Transaksi::class, 'ambil'])->name('siap.diambil');
+    Route::get('/order-selesai', [Controllers\Transaksi::class, 'selesai'])->name('order.selesai');
 });

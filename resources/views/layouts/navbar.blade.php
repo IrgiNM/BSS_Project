@@ -7,13 +7,13 @@
     <div id="blockbayar" class="notif hidden w-[100%] h-[100%] bg-[#1e1442] opacity-[50%] backdrop-blur-sm fixed top-0 right-0 left-0 bottom-0 "></div>
     <div id="pembayaran" class="hidden notif w-[400px] h-[450px] absolute m-auto top-[100px] rounded-[10px] bg-white flex-col">
         <div class="relative w-full h-[50px] px-[20px] flex flex-row items-center justify-center border-b-[2px]">
-            <p class="text-[15px] font-bold">Pembayaran</p>
+            <p class="text-[15px] font-bold">Pembayaran DP</p>
             <i id="xbayar" class="absolute right-3 fa-solid fa-xmark w-[30px] h-[30px] flex justify-center items-center rounded-[5px] bg-blue-50 hover:text-white hover:bg-[#ff4684] cursor-pointer transition-all duration-200"></i>
         </div>
         <form action="{{ route('pembayaran') }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="w-full border-b-[2px] flex flex-col px-[50px] py-[30px]">
-                <input required type="text" name="status" id="status" value="menunggu konfirmasi" class="hidden">
+                <input required type="text" name="status" id="status" value="bayar dp" class="hidden">
                 <input required type="number" name="harga" id="harga" value="0" class="hidden">
                 <input required type="text" name="id_sab" id="id_sab" value="0" class="hidden">
                 <label for="alamat" class="text-[13px] font-bold flex flex-row items-center"><i class="fa-solid fa-location-dot fa-bounce text-[13px] w-[30px] h-[30px] rounded-full text-[#2168b9] bg-blue-100 flex justify-center items-center me-3"></i> Alamat</label>
@@ -27,8 +27,8 @@
             </div>
             <div class="w-full h-auto flex flex-row justify-between items-center px-[50px] py-[30px]">
                 <div class="w-auto flex flex-col">
-                    <p class="text-[10px] ">Total Pembayaran :</p>
-                    <p class="total-harga font-bold text-[12px] ">Rp.0</p>
+                    <p class="text-[10px] ">Total Pembayaran dp :</p>
+                    <p class="total-dp font-bold text-[12px] ">Rp.0</p>
                 </div>
                 <button type="submit" class="px-3 py-2 rounded-[5px] text-white bg-[#ff4684] text-[13px]">Kirim <i class="fa-solid fa-angle-right text-[13px] text-white ms-3"></i></button>
             </div>
@@ -40,15 +40,15 @@
 
     {{-- NOTIF --}}
     @if (session('notif'))
-        <div id="cart" class="absolute right-[148px] top-[80px] w-[300px] h-auto h-max-[300px] flex flex-row items-center justify-center rounded-[5px] bg-white border-[2px] border-b-[5px] p-2">
-            <i class="absolute -top-6 right-[128px] text-[#dbdde1] text-[30px] fa-solid fa-caret-up"></i>
+        <div id="cart" class="absolute right-[168px] top-[80px] w-[300px] h-auto h-max-[300px] flex flex-row items-center justify-center rounded-[5px] bg-white border-[2px] border-b-[5px] border-[#303178] p-2">
+            <i class="absolute -top-6 right-[128px] text-[#303178] text-[30px] fa-solid fa-caret-up"></i>
             <p class="text-[10px]">{{ session('notif') }}</p>
             <i class="fa-solid fa-check w-[20px] h-[20px] flex justify-center items-center bg-green-200 text-[#2cb379] rounded-full text-[8px] ms-3"></i>
         </div>
     @endif
 
-    <div id="notif" class="hidden absolute right-[148px] top-[80px] w-[300px] h-auto h-max-[300px] rounded-[5px] bg-white border-[2px]">
-        <i class="absolute -top-6 right-[128px] text-[#dbdde1] text-[30px] fa-solid fa-caret-up"></i>
+    <div id="notif" class="hidden absolute right-[168px] top-[80px] overflow-y-scroll w-[300px] h-[400px] h-max-[300px] rounded-[5px] bg-white border-[2px] border-[#303178] flex-col">
+        <i class="absolute -top-6 right-[128px] text-[#303178] text-[30px] fa-solid fa-caret-up"></i>
         {{-- Notif Card --}}
         @foreach ($notif as $not)
         <div class="w-full border-b-[2px] flex flex-col p-3">
@@ -56,7 +56,10 @@
                 @if ($not->type == "menunggu konfirmasi")
                     <i class="fa-solid fa-clipboard-check text-[13px] me-4 w-[30px] h-[30px] rounded-full bg-green-200 flex justify-center items-center text-[#2cb379]"></i>
                 @endif
-                <a href="#" class="w-[150px] font-bold text-[12px] me-6">{{ $not->judul }}</a>
+                @if ($not->type == "bayar lunas")
+                    <i class="fa-solid fa-box text-[13px] me-4 w-[30px] h-[30px] rounded-full bg-green-200 flex justify-center items-center text-[#2cb379]"></i>
+                @endif
+                <a href="{{ route("$not->link") }}" class="w-[150px] font-bold text-[12px] me-6">{{ $not->judul }}</a>
                 <p class="w-[50px] text-[10px]">{{ $not->created_at }}</p>
             </div>
             <div class="w-full h-auto px-[45px]">
@@ -72,8 +75,8 @@
 
     {{-- KERANJANG NOTIF --}}
     @if (session('success'))
-        <div id="cart" class="absolute right-[95px] top-[80px] w-[300px] h-auto h-max-[300px] flex flex-row items-center justify-center rounded-[5px] bg-white border-[2px] border-b-[5px] p-2">
-            <i class="absolute -top-6 right-[128px] text-[#dbdde1] text-[30px] fa-solid fa-caret-up"></i>
+        <div id="cart" class="absolute right-[120px] top-[80px] w-[300px] h-auto h-max-[300px] flex flex-row items-center justify-center rounded-[5px] bg-white border-[2px] border-b-[5px] border-[#303178] p-2">
+            <i class="absolute -top-6 right-[128px] text-[#303178] text-[30px] fa-solid fa-caret-up"></i>
             <i class="fa-solid fa-cart-plus w-[20px] h-[20px] flex justify-center items-center bg-[#ffc8db] text-[#ff4684] rounded-full text-[8px] me-3"></i>
             <p class="text-[10px]">{{ session('success') }}</p>
             <i class="fa-solid fa-check w-[20px] h-[20px] flex justify-center items-center bg-green-200 text-[#2cb379] rounded-full text-[8px] ms-3"></i>
@@ -174,8 +177,10 @@
     </div>
     <button id="bell" class="fa-regular fa-bell text-[20px] me-3 text-[#ff4684]"></button>
     <button id="keranjang" class="fa-solid fa-cart-shopping text-[17px] me-3 text-[#ff4684]"></button>
-    <p class="absolute top-[47px] text-[#ff4684] right-[230px] text-[10px]">{{ $countcartsab }}</p>
-    <p class="absolute top-[47px] text-[#ff4684] right-[283px] text-[10px]">{{ $countnotif }}</p>
+    <a href="{{ route('belum.konfirmasi') }}" id="transaksi" class="fa-solid fa-receipt text-[17px] me-3 text-[#ff4684]"></a>
+    <p class="absolute top-[47px] text-[#ff4684] right-[255px] text-[10px]">{{ $countcartsab }}</p>
+    <p class="absolute top-[47px] text-[#ff4684] right-[304px] text-[10px]">{{ $countnotif }}</p>
+    <p class="absolute top-[47px] text-[#ff4684] right-[213px] text-[10px]">0</p>
     @auth
         <form method="POST" action="{{ route('logout') }}" class="inline">
             @csrf
@@ -228,6 +233,7 @@
     $(document).ready(function() {
          // Variabel untuk menyimpan total harga dan ID sab yang dipilih
         let totalHarga = 0;
+        let totalDP = 0;
         let selectedSabIds = [];
         let totalidsab = 0;
         var $harga = $('#harga');
@@ -257,12 +263,15 @@
                     selectedSabIds = selectedSabIds.filter(id => id !== sabId);
                 }
 
+                totalDP = totalHarga/2;
+
                 // Gabungkan ID sab dengan tanda "/"
                 let selectedSabIdsString = selectedSabIds.join('/');
 
                 // Update teks di dalam tag <p> dengan total harga
                 $('.total-harga').text('Rp.' + totalHarga);
                 $('.total-idsab').text(totalidsab);
+                $('.total-dp').text('Rp.' + totalDP);
 
                 $harga.val(totalHarga);
                 $id_sab.val(selectedSabIdsString);

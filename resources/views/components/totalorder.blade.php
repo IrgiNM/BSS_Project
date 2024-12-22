@@ -11,7 +11,7 @@
         <p class="fa-solid fa-paint-roller text-[20px] flex justify-center items-center w-[40px] h-[40px] bg-white rounded-[5px] group-hover:text-[#ff4684]"></p>
         <div class="h-[100%] ms-3 flex flex-col items-start">
             <p class="text-[13px] font-bold group-hover:text-white mt-1">Sablon</p>
-            <p class="text-[13px] font-light group-hover:text-white -mt-1">0 dipesan</p>
+            <p class="text-[13px] font-light group-hover:text-white -mt-1">{{ $countsab }} dipesan</p>
         </div>
     </a>
 
@@ -35,7 +35,7 @@
         <p class="fa-solid fa-hand-holding-dollar text-[20px] flex justify-center items-center w-[40px] h-[40px] bg-white rounded-[5px] group-hover:text-[#ff4684]"></p>
         <div class="h-[100%] ms-3 flex flex-col items-start">
             <p class="text-[13px] font-bold group-hover:text-white mt-1">Bayar DP</p>
-            <p class="text-[13px] font-light group-hover:text-white -mt-1">0 pesanan</p>
+            <p class="text-[13px] font-light group-hover:text-white -mt-1">{{ $countdp }} pesanan</p>
         </div>
     </a>
 
@@ -43,7 +43,7 @@
         <p class="fa-solid fa-money-bill-wave text-[20px] flex justify-center items-center w-[40px] h-[40px] bg-white rounded-[5px] group-hover:text-[#34e796]"></p>
         <div class="h-[100%] ms-3 flex flex-col items-start">
             <p class="text-[13px] font-bold group-hover:text-white mt-1">Lunas</p>
-            <p class="text-[13px] font-light group-hover:text-white -mt-1">0 pesanan</p>
+            <p class="text-[13px] font-light group-hover:text-white -mt-1">{{ $countlunas }} pesanan</p>
         </div>
     </a>
 

@@ -23,11 +23,12 @@
                 <select name="status" id="status" class="w-full mt-3 mb-2 border-[2px] rounded-[5px] text-[13px]" value="{{ $sablons->status }}">
                     <option value="keranjang">keranjang</option> 
                     <option value="tunggu harga">tunggu harga</option> 
-                    <option value="dikonfirmasi">dikonfirmasi</option>
-                    <option value="diproses">diproses</option>
+                    <option value="tunggu konfirmasi">tungggu konfirmasi</option>
+                    <option value="ngantri">ngantri</option>
                     <option value="siap diambil">siap diambil</option>
+                    <option value="selesai">selesai</option>
                 </select>
-                <input required type="number" name="harga" id="harga" class="w-full border-[2px] rounded-[5px] text-[13px]" value="0">
+                <input required type="number" name="harga" id="harga" class="w-full border-[2px] rounded-[5px] text-[13px]" value="{{ $sablons->harga }}">
                 <button type="submit" id="submit" class="w-full mt-4 rounded-[5px]  py-2 bg-blue-500 text-white ">Kirim</button>
             </form>
         </div>
@@ -53,7 +54,7 @@
     </div>
 
     <div class="w-[100%] h-auto ps-[240px] pb-[250px] pe-[40px] bg-[#e5e5f0] flex flex-col">
-        <x-totalorder></x-totalorder>
+        <x-totalorder countsab="{{ $countsablon }}" countdp="{{ $countbayardp }}" countlunas="{{ $countbayarlunas }}"></x-totalorder>
         <div class="w-full h-auto flex flex-row items-center mb-[10px]">
             <p class="text-[10px] font-bold text-[#1b2543]">New</p>
             <div class="w-full h-[2px] bg-[#1b2543] mx-[15px]"></div>
@@ -61,7 +62,6 @@
         </div>
 
         <div class="w-[100%] h-auto rounded-[5px] p-3 flex flex-row gap-4 flex-wrap">
-            <?php $n=1 ?>
             @foreach ($items as $i)
             <div id="divitem" class="divitem relative w-[250px] h-[300px] me-[50px] rounded-s-[5px] flex flex-row shadow-lg bg-white transition-all duration-500">
                 <button id="butitem" class="butitem absolute w-[30px] h-[300px] text-[13px] -right-[30px] flex items-center justify-center fa-solid fa-caret-right text-white rounded-e-[5px] bg-[#303f6e] hover:bg-[#1b2543] transition-all duration-200"></button>
@@ -74,7 +74,7 @@
                 </div>
                 <div id="divdata" class="divdata hidden w-[380px] h-[450px] rounded-[5px] flex-col">
                     <div class="w-full flex items-center">
-                        <p class="text-[13px] text-white w-[20px] h-[20px] bg-[#ff83ac] rounded-[5px] me-1 text-center">{{ $n }}</p>
+                        <p class="text-[13px] text-white w-[20px] h-[20px] bg-[#ff83ac] rounded-[5px] me-1 text-center">{{ $i->id }}</p>
                         <p class="text-[15px] text-left ms-3 mt-4 mb-3 font-bold">Sablon {{ $i->metode_kaos }}</p>
                         <p class="text-[13px] px-[15px] py-[2px] rounded-[5px] text-white bg-[#ff4684] ms-[50px]">{{ $i->updated_at }}</p>
                     </div>
@@ -125,7 +125,6 @@
 
                 </div>
             </div>
-            <?php $n++ ?>
             @endforeach
         </div>
     </div>

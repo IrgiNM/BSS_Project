@@ -11,6 +11,44 @@ use Illuminate\Support\Facades\Auth;
 
 class Pembayaran extends Controller
 {
+    public function bayarlunas(Request $request){
+        // Ambil id pengguna dari sesi
+        $customerId = Auth::user()->id;
+        $request->validate([
+            'gambarb' => 'required|image|mimes:jpeg,png,jpg,gif|max:10240',
+            'alamatb' => 'required|string'
+        ]);
+        $imagePath = null;
+        if($request->hasFile('gambarb')){
+            Log::info('Image file is present.');
+            $imagePath = $request->file('gambarb')->store('images', 'public');
+            Log::info('Image stored at: ' . $imagePath);
+        } else {
+            Log::warning('No image file found in the request.');
+        }
+
+        $order = Orders::where('id_customer', $customerId)->where('status', 'bayar dp')->orderBy('id', 'desc')->first();
+        $order->gambar = $imagePath;
+        $order->alamat = $request->alamatb;
+        $order->status = "bayar lunas";
+        $order->save();
+
+        // membuat notif
+        $notif = new Notif();
+        $notif->id_customer = $customerId;
+        $notif->type = "bayar lunas";
+        $notif->judul = "Pembayaran sudah Lunas!!";
+        $notif->isi = "Pesanan yang anda lakukan berhasil dilunaskan. silahkan hubungi admin untuk mengambil pesanan anda.";
+        $notif->link = "{{ route('siap.diambil') }}";
+        $notif->created_at = now();
+        $notif->updated_at = now();
+        $notif->save();
+
+        // Redirect atau response sesuai kebutuhan
+        return redirect()->back()->with('notif', 'Pelunasan berhasil dilakukan');
+    }
+
+
     public function bayardp(Request $request) {
 
         // Ambil id pengguna dari sesi
@@ -51,7 +89,7 @@ class Pembayaran extends Controller
         $notif->type = "menunggu konfirmasi";
         $notif->judul = "Pembayaran Berhasil!!";
         $notif->isi = "Pembayaran yang anda lakukan berhasil terkirim ke admin. tunggu pesanan anda dikonfirmasi";
-        $notif->link = "{{ route('pemesanan.nunggu.konfirmasi') }}";
+        $notif->link = "belum.konfirmasi";
         $notif->created_at = now();
         $notif->updated_at = now();
         $notif->save();
