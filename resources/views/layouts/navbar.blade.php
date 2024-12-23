@@ -14,7 +14,7 @@
             @csrf
             <div class="w-full border-b-[2px] flex flex-col px-[50px] py-[30px]">
                 <input required type="text" name="status" id="status" value="bayar dp" class="hidden">
-                <input required type="number" name="harga" id="harga" value="0" class="hidden">
+                <input required type="text" name="harga" id="harga" value="0" class="hidden">
                 <input required type="text" name="id_sab" id="id_sab" value="0" class="hidden">
                 <label for="alamat" class="text-[13px] font-bold flex flex-row items-center"><i class="fa-solid fa-location-dot fa-bounce text-[13px] w-[30px] h-[30px] rounded-full text-[#2168b9] bg-blue-100 flex justify-center items-center me-3"></i> Alamat</label>
                 <input required type="text" name="alamat" id="alamat" value="indramayu" class="w-full text-[13px] border-b-[3px] border-[2px] border-[#2168b9] rounded-[5px] mt-3 mb-6">
@@ -54,10 +54,25 @@
         <div class="w-full border-b-[2px] flex flex-col p-3">
             <div class="w-full flex flex-row items-center">
                 @if ($not->type == "menunggu konfirmasi")
-                    <i class="fa-solid fa-clipboard-check text-[13px] me-4 w-[30px] h-[30px] rounded-full bg-green-200 flex justify-center items-center text-[#2cb379]"></i>
+                    <i class="fa-solid fa-clipboard-check text-[13px] me-4 w-[30px] h-[30px] rounded-full bg-[#fff2d3] flex justify-center items-center text-[#f8b82c]"></i>
                 @endif
                 @if ($not->type == "bayar lunas")
                     <i class="fa-solid fa-box text-[13px] me-4 w-[30px] h-[30px] rounded-full bg-green-200 flex justify-center items-center text-[#2cb379]"></i>
+                @endif
+                @if ($not->type == "ngantri")
+                    <i class="fa-solid fa-person-walking-dashed-line-arrow-right text-[13px] me-4 w-[30px] h-[30px] rounded-full bg-[#fff2d3] flex justify-center items-center text-[#f8b82c]"></i>
+                @endif
+                @if ($not->type == "ulasan")
+                    <i class="fa-solid fa-star text-[13px] me-4 w-[30px] h-[30px] rounded-full bg-[#fff2d3] flex justify-center items-center text-[#f8b82c]"></i>
+                @endif
+                @if ($not->type == "diambil")
+                    <i class="fa-solid fa-hand-holding-dollar text-[13px] me-4 w-[30px] h-[30px] rounded-full bg-[#fff2d3] flex justify-center items-center text-[#f8b82c]"></i>
+                @endif
+                @if ($not->type == "selesai")
+                    <i class="fa-solid fa-box text-[13px] me-4 w-[30px] h-[30px] rounded-full bg-[#ffc8db] flex justify-center items-center text-[#ff4684]"></i>
+                @endif
+                @if ($not->type == "sudah diambil")
+                    <i class="fa-solid fa-circle-check text-[13px] me-4 w-[30px] h-[30px] rounded-full bg-green-200 flex justify-center items-center text-[#2cb379]"></i>
                 @endif
                 <a href="{{ route("$not->link") }}" class="w-[150px] font-bold text-[12px] me-6">{{ $not->judul }}</a>
                 <p class="w-[50px] text-[10px]">{{ $not->created_at }}</p>
@@ -180,7 +195,6 @@
     <a href="{{ route('belum.konfirmasi') }}" id="transaksi" class="fa-solid fa-receipt text-[17px] me-3 text-[#ff4684]"></a>
     <p class="absolute top-[47px] text-[#ff4684] right-[255px] text-[10px]">{{ $countcartsab }}</p>
     <p class="absolute top-[47px] text-[#ff4684] right-[304px] text-[10px]">{{ $countnotif }}</p>
-    <p class="absolute top-[47px] text-[#ff4684] right-[213px] text-[10px]">0</p>
     @auth
         <form method="POST" action="{{ route('logout') }}" class="inline">
             @csrf
@@ -235,6 +249,7 @@
         let totalHarga = 0;
         let totalDP = 0;
         let selectedSabIds = [];
+        let selectedHarga = [];
         let totalidsab = 0;
         var $harga = $('#harga');
         var $id_sab = $('#id_sab');
@@ -245,6 +260,8 @@
             $(this).on('click', function() {
                 // Dapatkan harga dan ID sab dari elemen yang diklik
                 let price = parseFloat($(this).data('price'));
+                let pricebagi = price/2;
+                let priceString = pricebagi.toString();
                 let sabId = $(this).data('sab-id');
 
                 // Toggle kelas 'fa-square' dengan 'fa-check-square'
@@ -256,24 +273,27 @@
                     totalHarga += price;
                     totalidsab += 1;
                     selectedSabIds.push(sabId);
+                    selectedHarga.push(priceString);
                 } else {
                     // Kurangi harga dan hapus ID sab dari total dan daftar
                     totalHarga -= price;
                     totalidsab -= 1;
                     selectedSabIds = selectedSabIds.filter(id => id !== sabId);
+                    selectedHarga = selectedHarga.filter(harga => harga !== priceString);
                 }
 
                 totalDP = totalHarga/2;
 
                 // Gabungkan ID sab dengan tanda "/"
                 let selectedSabIdsString = selectedSabIds.join('/');
+                let selectedHargaString = selectedHarga.join('/');
 
                 // Update teks di dalam tag <p> dengan total harga
                 $('.total-harga').text('Rp.' + totalHarga);
                 $('.total-idsab').text(totalidsab);
                 $('.total-dp').text('Rp.' + totalDP);
 
-                $harga.val(totalHarga);
+                $harga.val(selectedHargaString);
                 $id_sab.val(selectedSabIdsString);
 
                 // Output total harga dan ID sab yang dipilih

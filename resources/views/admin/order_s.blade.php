@@ -7,18 +7,7 @@
         <div id="divadd" class="fixed depan top-[250px] right-[500px] depan w-[300px] h-auto flex flex-col items-center p-[20px] rounded-[10px] bg-white">
             <form action="{{ route('update.orsab', $sablons->id) }}" method="POST" enctype="multipart/form-data">
                 @csrf
-                <input required type="text" name="jeniskaos" id="jeniskaos" class="hidden" value="{{ $sablons->jenis_kaos }}">
                 <input required type="text" name="customer" id="customer" class="hidden" value="{{ $sablons->id_customer }}">
-                <input required type="text" name="warnakaos" id="warnakaos" class="hidden" value="{{ $sablons->warna_kaos }}">
-                <input required type="text" name="gambarkaos" id="gambarkaos" class="hidden" value="{{ $sablons->gambar }}">
-                <input required type="text" name="gambarjadi" id="gambarjadi" class="hidden" value="{{ $sablons->gambar_jadi }}">
-                <input required type="text" name="posisikaos" id="posisikaos" class="hidden" value="{{ $sablons->posisi }}">
-                <input required type="text" name="metodekaos" id="metodekaos" class="hidden" value="{{ $sablons->metode_kaos }}">
-                <input required type="text" name="ukurankaos" id="ukurankaos" class="hidden" value="{{ $sablons->ukuran_sablon }}">
-                <input required type="number" name="jumlahkaos" id="jumlahkaos" class="hidden" value="{{ $sablons->jumlah_kaos }}">
-                <input required type="text" name="warnasablon" id="warnasablon" class="hidden" value="{{ $sablons->warna_sablon }}">
-                <input required type="text" name="created" id="created" class="hidden" value="{{ $sablons->created_at }}">
-
                 <p class="text-[13px] font-bold"><i class="fa-regular fa-pen-to-square text-[13px] me-2"></i>Edit</p>
                 <select name="status" id="status" class="w-full mt-3 mb-2 border-[2px] rounded-[5px] text-[13px]" value="{{ $sablons->status }}">
                     <option value="keranjang">keranjang</option> 
@@ -26,7 +15,8 @@
                     <option value="tunggu konfirmasi">tungggu konfirmasi</option>
                     <option value="ngantri">ngantri</option>
                     <option value="siap diambil">siap diambil</option>
-                    <option value="selesai">selesai</option>
+                    <option value="belum diambil">belum diambil</option>
+                    <option value="sudah diambil">sudah diambil</option>
                 </select>
                 <input required type="number" name="harga" id="harga" class="w-full border-[2px] rounded-[5px] text-[13px]" value="{{ $sablons->harga }}">
                 <button type="submit" id="submit" class="w-full mt-4 rounded-[5px]  py-2 bg-blue-500 text-white ">Kirim</button>
@@ -109,16 +99,16 @@
                     </div>
                     <div class="w-[360px] rounded-[5px] flex flex-row border-[2px] border-b-[5px] mt-10 p-2">
                         <div class="w-[100px] h-auto flex flex-col ms-3">
-                            <p class="text-[13px] font-semibold">status</p>
-                            <p class="text-[13px] font-semibold">warna kaos</p>
+                            <p class="text-[10px] font-semibold">status</p>
+                            <p class="text-[10px] font-semibold">harga</p>
                         </div>
                         <div class="w-[20px] h-auto flex flex-col ms-3">
-                            <p class="text-[13px] font-bold"> : </p>
-                            <p class="text-[13px] font-bold"> : </p>
+                            <p class="text-[10px] font-bold"> : </p>
+                            <p class="text-[10px] font-bold"> : </p>
                         </div>
                         <div class="w-[100px] h-auto flex flex-col ms-3">
-                            <p class="text-[13px] font-semibold text-[#ff4684]">{{ $i->status }}</p>
-                            <p class="text-[13px] font-semibold">Rp.{{ $i->harga }}</p>
+                            <p class="text-[10px] font-semibold text-[#ff4684]">{{ $i->status }}</p>
+                            <p class="text-[10px] font-semibold">Rp.{{ $i->harga }}</p>
                         </div>
                         <a href="{{ route('edit.order.sablon', $i->id) }}" class="fa-solid fa-pen-to-square text-[13px] py-[10px] px-[10px] rounded-[5px] border-[2px] border-b-[5px] text-[#1b2543] border-[#1b2543] hover:text-white hover:bg-[#1b2543] ms-9"></a>
                     </div>

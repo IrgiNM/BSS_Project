@@ -104,4 +104,5 @@ Route::middleware('auth')->group(function(){
     Route::get('/order-diproses', [Controllers\Transaksi::class, 'proses'])->name('order.diproses');
     Route::get('/siap-diambil', [Controllers\Transaksi::class, 'ambil'])->name('siap.diambil');
     Route::get('/order-selesai', [Controllers\Transaksi::class, 'selesai'])->name('order.selesai');
+    Route::post('/ulasan-order', [Controllers\UlasanPage::class, 'createUlasan'])->name('create.ulasan');
 });

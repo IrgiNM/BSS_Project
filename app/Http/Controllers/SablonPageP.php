@@ -105,40 +105,69 @@ class SablonPageP extends Controller
 
         // Validasi input
         $request->validate([
-            'jeniskaos' => 'required|string',
-            'customer' => 'required|string',
-            'warnakaos' => 'required|string',
-            'posisikaos' => 'required|string',
-            'jumlahkaos' => 'required|integer',
+            'customer' => 'required|integer',
             'harga' => 'required|integer',
-            'gambarkaos' => 'required|string',
-            'gambarjadi' => 'required|string',
-            'warnasablon' => 'required|string',
-            'ukurankaos' => 'required|string',
-            'metodekaos' => 'required|string',
-            'created' => 'required|string',
             'status' => 'required|string',
         ]);
 
         $orderSablon = OrderSablon::findOrFail($id);
 
         // Simpan data ke database
-        $orderSablon->id_customer = $request->customer;
-        $orderSablon->jenis_kaos = $request->jeniskaos;
         $orderSablon->status = $request->status;
-        $orderSablon->warna_kaos = $request->warnakaos;
-        $orderSablon->gambar = $request->gambarkaos;
-        $orderSablon->gambar_jadi = $request->gambarjadi;
-        $orderSablon->posisi = $request->posisikaos;
-        $orderSablon->jumlah_kaos = $request->jumlahkaos;
-        $orderSablon->warna_sablon = $request->warnasablon;
-        $orderSablon->ukuran_sablon = $request->ukurankaos;
-        $orderSablon->metode_kaos = $request->metodekaos;
-        $orderSablon->bahan_sablon = "biasa";
-        $orderSablon->created_at = $request->created;
+        $orderSablon->id_customer = $request->customer;
         $orderSablon->harga = $request->harga;
         $orderSablon->updated_at = now(); // Mengisi updated_at dengan NOW()
         $orderSablon->save();
+
+
+        if($request->status == 'ngantri'){
+            // membuat notif
+            $notif = new Notif();
+            $notif->id_customer = $request->customer;
+            $notif->type = "ngantri";
+            $notif->judul = "Pesanan dalam antrian!!";
+            $notif->isi = "pesanan anda sudah dikonfirmasi oleh admin. sekarang sedang dalam antrian. tunggu pesanan lain selesai";
+            $notif->link = "ngantri";
+            $notif->created_at = now();
+            $notif->updated_at = now();
+            $notif->save();
+        }
+        elseif($request->status == 'siap diambil'){
+            // membuat notif
+            $notif = new Notif();
+            $notif->id_customer = $request->customer;
+            $notif->type = "diambil";
+            $notif->judul = "Pesanan siap diambil!!";
+            $notif->isi = "pesanan anda SUDAH JADI. silahkan lunasi pesanan anda";
+            $notif->link = "siap.diambil";
+            $notif->created_at = now();
+            $notif->updated_at = now();
+            $notif->save();
+        }
+        elseif($request->status == 'belum diambil'){
+            // membuat notif
+            $notif = new Notif();
+            $notif->id_customer = $request->customer;
+            $notif->type = "selesai";
+            $notif->judul = "Ambil pesanan anda!!";
+            $notif->isi = "pelunasan yang anda lakukan sudah dikonfirmasi oleh admin. silahkan ambil pesanan anda atau hubungi admin untuk pengantaran.";
+            $notif->link = "order.selesai";
+            $notif->created_at = now();
+            $notif->updated_at = now();
+            $notif->save();
+        }
+        elseif($request->status == 'sudah diambil'){
+            // membuat notif
+            $notif = new Notif();
+            $notif->id_customer = $request->customer;
+            $notif->type = "sudah diambil";
+            $notif->judul = "TERIMA KASIH!!";
+            $notif->isi = "Terima kasih sudah memesan di toko kami. kami tunggu pesanan anda yang lainnya ^^. beri ulasan anda!!";
+            $notif->link = "order.selesai";
+            $notif->created_at = now();
+            $notif->updated_at = now();
+            $notif->save();
+        }
 
         $countbayardp = Orders::where('status','bayar dp')->count();
         $countbayarlunas = Orders::where('status','bayar lunas')->count();

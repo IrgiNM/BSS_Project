@@ -72,7 +72,7 @@
         <script>
 
             // TOMBOL KIRIM DATA
-            // document.addEventListener('DOMContentLoaded', function() {
+            // document.addEventListener('DOMContentLoaded', function() {   
             //     var yakin = document.querySelectorAll('#yakin');
             //     var close = document.querySelectorAll('#close');
             //     var blok = document.querySelectorAll('#blok');

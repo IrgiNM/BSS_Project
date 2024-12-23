@@ -15,7 +15,9 @@ class Pembayaran extends Controller
         // Ambil id pengguna dari sesi
         $customerId = Auth::user()->id;
         $request->validate([
+            'id_sabb' => 'nullable|string',
             'gambarb' => 'required|image|mimes:jpeg,png,jpg,gif|max:10240',
+            'hargab' => 'required|string',
             'alamatb' => 'required|string'
         ]);
         $imagePath = null;
@@ -27,22 +29,50 @@ class Pembayaran extends Controller
             Log::warning('No image file found in the request.');
         }
 
-        $order = Orders::where('id_customer', $customerId)->where('status', 'bayar dp')->orderBy('id', 'desc')->first();
-        $order->gambar = $imagePath;
-        $order->alamat = $request->alamatb;
-        $order->status = "bayar lunas";
-        $order->save();
-
         // membuat notif
         $notif = new Notif();
         $notif->id_customer = $customerId;
         $notif->type = "bayar lunas";
         $notif->judul = "Pembayaran sudah Lunas!!";
-        $notif->isi = "Pesanan yang anda lakukan berhasil dilunaskan. silahkan hubungi admin untuk mengambil pesanan anda.";
-        $notif->link = "{{ route('siap.diambil') }}";
+        $notif->isi = "Pesanan yang anda lakukan berhasil dilunaskan. silahkan tunggu admin untuk konfirmasi pelunasan anda.";
+        $notif->link = "siap.diambil";
         $notif->created_at = now();
         $notif->updated_at = now();
         $notif->save();
+
+        // Memecah string menjadi array berdasarkan delimiter "/"
+        $array = explode('/', $request->id_sabb);
+        $arrayh = explode('/', $request->hargab);
+
+        // Mengkonversi setiap elemen array menjadi integer
+        $ids = array_map('intval', $array);
+        $harga = array_map('intval', $arrayh);
+
+        // edit id order_sablon
+        foreach($ids as $index => $id){
+            $ordersab = OrderSablon::find($id);
+            if($ordersab){
+                $ordersab->status = "lunas";
+                $ordersab->updated_at = now();
+                $ordersab->save();
+            }
+            $bayardp = Orders::where('id_sablon', "$id")->first();
+            if($bayardp){
+                $bayardp->delete();
+            }
+            $order = new Orders();
+            $order->id_customer = $customerId;
+            $order->gambar = $imagePath;
+            $order->id_sablon = $id;
+            $order->alamat = $request->alamatb;
+            $order->status = "bayar lunas";
+            $order->updated_at = now();
+            $order->created_at = now();
+            $order->harga = $harga[$index];
+            $order->save();
+        }
+
+        
 
         // Redirect atau response sesuai kebutuhan
         return redirect()->back()->with('notif', 'Pelunasan berhasil dilakukan');
@@ -59,7 +89,7 @@ class Pembayaran extends Controller
             'status' => 'required|string|max:255',
             'id_sab' => 'nullable|string',
             'alamat' => 'required|string',
-            'harga' => 'required|integer',
+            'harga' => 'required|string',
         ]);
 
         $imagePath = null;
@@ -71,17 +101,7 @@ class Pembayaran extends Controller
             Log::warning('No image file found in the request.');
         }
 
-        // membuat order
-        $order = new Orders();
-        $order->id_customer = $customerId;
-        $order->id_sablon = $request->id_sab;
-        $order->status = $request->status;
-        $order->alamat = $request->alamat;
-        $order->gambar = $imagePath;
-        $order->updated_at = now();
-        $order->created_at = now();
-        $order->harga = $request->harga;
-        $order->save();
+        
 
         // membuat notif
         $notif = new Notif();
@@ -96,18 +116,32 @@ class Pembayaran extends Controller
 
         // Memecah string menjadi array berdasarkan delimiter "/"
         $array = explode('/', $request->id_sab);
+        $arrayh = explode('/', $request->harga);
 
         // Mengkonversi setiap elemen array menjadi integer
         $ids = array_map('intval', $array);
+        $harga = array_map('intval', $arrayh);
 
-        // edit id order_sablon
-        foreach($ids as $id){
+        // edit id order_sablon dan membuat order
+        foreach($ids as $index => $id) {
             $ordersab = OrderSablon::find($id);
-            if($ordersab){
+            if($ordersab) {
                 $ordersab->status = "tunggu konfirmasi";
-                $ordersab->updated_at = now();
+                $ordersab->created_at = now();
                 $ordersab->save();
             }
+
+            // membuat order
+            $order = new Orders();
+            $order->id_customer = $customerId;
+            $order->id_sablon = $id;
+            $order->status = $request->status;
+            $order->alamat = $request->alamat;
+            $order->gambar = $imagePath;
+            $order->updated_at = now();
+            $order->created_at = now();
+            $order->harga = $harga[$index]; // Memasukkan harga yang sesuai
+            $order->save();
         }
 
         // Redirect atau response sesuai kebutuhan
